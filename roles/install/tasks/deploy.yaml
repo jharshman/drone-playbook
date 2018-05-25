@@ -1,0 +1,7 @@
+---
+- name: template values
+  template:
+    src: values.yaml.j2
+    dest: values.yaml
+  notify: deploy
+

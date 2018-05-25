@@ -1,0 +1,7 @@
+---
+- name deploy
+  command: |
+    helm upgrade -i \
+    --name {{ release_name }} \
+    {{ chart }} \
+    --namespace {{ namespace }}
