@@ -5,3 +5,4 @@
     --name {{ release_name }} \
     {{ chart }} \
     --namespace {{ namespace }}
+  ignore_errors: {{ ansible_check_mode }}

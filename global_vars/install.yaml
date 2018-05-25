@@ -1,2 +1,10 @@
 # Optional default variables for your role.
 ---
+release_name: "drone-ci"
+namespace: "rnd"
+chart: "incubator/drone"
+hostname: "drone-ci.joshuaharshman.com"
+ingress_annotation: "kubernetes.io/ingress.global-static-ip-name: drone-ci"
+drone_orgs: ""
+drone_admins: ""
+drone_github_secret: ""
