@@ -1,0 +1,5 @@
+# generated role: install
+---
+- hosts: localhost
+  roles:
+  - install
