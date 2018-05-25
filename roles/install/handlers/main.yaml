@@ -1,8 +1,9 @@
 ---
-- name deploy
+- name: deploy
   command: |
     helm upgrade -i \
-    --name {{ release_name }} \
-    {{ chart }} \
-    --namespace {{ namespace }}
-  ignore_errors: {{ ansible_check_mode }}
+    --name "{{ release_name }}" \
+    -f "rendered/values.yaml" \
+    "{{ chart }}" \
+    --namespace "{{ namespace }}"
+  ignore_errors: "{{ ansible_check_mode }}"

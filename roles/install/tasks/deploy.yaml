@@ -1,7 +1,13 @@
 ---
+- name: create directory
+  file:
+    path: rendered
+    state: directory
+    mode: 0755
+
 - name: template values
   template:
     src: values.yaml.j2
-    dest: values.yaml
+    dest: "rendered/values.yaml"
   notify: deploy
 
