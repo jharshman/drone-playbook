@@ -59,16 +59,14 @@ EOM
 }
 
 wrapc() {
-  local _kubeconfig=$KUBECONFIG
+  local _kubeconfig="${HOME}/.kube/config"
   docker run --rm \
     -e "KUBECONFIG=/root/.kubeconfig.yaml" \
-    -e "playbook=/root/ansible/drone-playbook" \
     -v "$_kubeconfig":"/root/.kubeconfig.yaml" \
-    -v "$HOME/kubeCA.pem":"/root/kubeCA.pem" \
-    -v "$(cd "${0%/*}/../.." && pwd)":"/root/ansible/drone-playbook" \
+    -v "$PWD":"/root/ansible/drone-playbook" \
     -w "/root/ansible/drone-playbook" \
     jharshman/helmsible \
-    ./runrole.sh "$@"
+    ./helmsible.sh "$@"
 }
 
 

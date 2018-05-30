@@ -66,7 +66,7 @@ server:
   ## If not set, it will be autofilled with the cluster host.
   ## Host must be in "<scheme>://<hostname>" format.
   ##
-  host: "https://{{ hostname }}
+  host: "https://{{ hostname }}"
 
   ## Drone server configuration.
   ## Values in here get injected as environment variables.
@@ -86,7 +86,8 @@ server:
     DRONE_GITHUB: "true"
     DRONE_ORGS: {{ drone_orgs }}
     DRONE_ADMIN: {{ drone_admins }}
-    DRONE_GITHUB_CLIENT: {{ drone_github_secret }}
+    DRONE_GITHUB_CLIENT: {{ drone_github_client }}
+    DRONE_GITHUB_SECRET: {{ drone_github_secret }}
 
   ## Secret environment variables are configured in `server.envSecrets`.
   ## Each item in `server.envSecrets` references a Kubernetes Secret.
@@ -96,7 +97,8 @@ server:
   #   # The name of a Kubernetes Secret
   #   drone-server-secrets:
   #     # A list of Secret keys to include as environment variables
-  #     - DRONE_GITHUB_SECRET
+  #     - DRONE_SERVER_CERT
+  #     - DRONE_SERVER_KEY
 
   ## Additional server annotations.
   ## ref: https://kubernetes.io/docs/concepts/overview/working-with-objects/annotations/

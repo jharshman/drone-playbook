@@ -1,0 +1,40 @@
+---
+- file:
+    path: "raw/{{ env }}"
+    state: directory
+    mode: 0755
+
+- name: create private key
+  openssl_privatekey:
+    path: "raw/{{ env }}/drone_private.pem"
+    size: 2048
+  ignore_errors: "{{ ansible_check_mode }}"
+
+- name: create csr
+  openssl_csr:
+    path: "raw/{{ env }}/drone_csr.pem"
+    privatekey_path: "raw/{{ env }}/drone_private.pem"
+    common_name: "{{ common_name }}"
+  ignore_errors: "{{ ansible_check_mode }}"
+
+- name: create cert
+  openssl_certificate:
+    path: "raw/{{ env }}/drone_crt.pem"
+    privatekey_path: "raw/{{ env }}/drone_private.pem"
+    csr_path: "raw/{{ env }}/drone_csr.pem"
+    provider: "selfsigned"
+  ignore_errors: "{{ ansible_check_mode }}"
+  
+- set_fact:
+    drone_key: "{{ lookup ('file', 'raw/{{ env }}/drone_private.pem') }}"
+    drone_crt: "{{ lookup ('file', 'raw/{{ env }}/drone_crt.pem') }}"
+  ignore_errors: "{{ ansible_check_mode }}"
+
+- name: create tls secret
+  template:
+    src: "tls-secret.yaml.j2"
+    dest: "raw/{{ env }}/tls-secret.yaml"
+
+- command: |
+    kubectl -n "{{ env }}" create -f "raw/{{ env }}/tls-secret.yaml"
+  ignore_errors: "{{ ansible_check_mode }}"

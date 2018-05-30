@@ -2,8 +2,8 @@
 - name: deploy
   command: |
     helm upgrade -i \
-    --name "{{ release_name }}" \
-    -f "rendered/values.yaml" \
+    "{{ release_name }}" \
+    -f "raw/{{ env }}/values.yaml" \
     "{{ chart }}" \
     --namespace "{{ namespace }}"
   ignore_errors: "{{ ansible_check_mode }}"
