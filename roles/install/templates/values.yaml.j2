@@ -31,11 +31,11 @@ service:
   ## If service.type is not set to NodePort, the following statement
   ## will be ignored.
   ##
-  # nodePort: 32015
+  nodePort: 32015
 
   ## Service type can be set to ClusterIP, NodePort or LoadBalancer.
   ##
-  type: NodePort
+  # type: NodePort
 
 ingress:
   ## If true, Drone Ingress will be created.
@@ -88,6 +88,7 @@ server:
     DRONE_ADMIN: {{ drone_admins }}
     DRONE_GITHUB_CLIENT: {{ drone_github_client }}
     DRONE_GITHUB_SECRET: {{ drone_github_secret }}
+    DRONE_GITHUB_SKIP_VERIFY: "true"
 
   ## Secret environment variables are configured in `server.envSecrets`.
   ## Each item in `server.envSecrets` references a Kubernetes Secret.
